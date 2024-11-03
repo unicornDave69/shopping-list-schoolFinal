@@ -1,9 +1,7 @@
 import React, { useState, useContext, useRef } from "react";
 import { OverviewContext } from "../Providers/OverviewProvider";
 import { UserContext } from "../Providers/UserProvider";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { CiCirclePlus } from "react-icons/ci";
-import { IoIosArchive } from "react-icons/io";
+import { Container, Row, Col} from "react-bootstrap";
 
 import WelcomeMessage from "./WelcomeMessage";
 import IconButtons from "./IconButtons";
@@ -37,51 +35,88 @@ function Toolbar() {
     return listColorsRef.current[listId];
   };
 
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  const handleShowConfirmModal = (list) => {
+    setListToDelete(list);
+    setShowConfirmModal(true);
+  };
+
+  const handleCloseConfirmModal = () => setShowConfirmModal(false);
+
+  const confirmDelete = () => {
+    if (listToDelete) {
+      handleDelete(listToDelete.id);
+    }
+    handleCloseConfirmModal();
+  };
+
+  const handleShowArchiveModal = (list) => {
+    setListToArchive(list);
+    setShowArchiveModal(true);
+  };
+
+  const handleCloseArchiveModal = () => setShowArchiveModal(false);
+
+  const confirmArchive = () => {
+    if (listToArchive) {
+      handleArchive(listToArchive.id);
+    }
+    handleCloseArchiveModal();
+  };
+
+  const handleSaveList = () => {
+    const newList = {
+      id: `sl${Math.random()}`,
+      name: listName,
+      owner: loggedInUser,
+      memberList: selectedMembers,
+    };
+    handleCreate(newList);
+    console.log(newList);
+    handleCloseModal();
+  };
+
+  const showDetail = (list) => {
+    setSelectedList(list);
+    setShowTable(true);
+  };
+
   return (
     <Container>
       <WelcomeMessage userName={userMap[loggedInUser]?.name} />
 
       <IconButtons
-        handleShowModal={() => setShowModal(true)}
+        handleShowModal={handleShowModal}
         setShowArchived={setShowArchived}
         showArchived={showArchived}
       />
 
       <CreateListModal
         showModal={showModal}
-        handleCloseModal={() => setShowModal(false)}
+        handleCloseModal={handleCloseModal}
         listName={listName}
         setListName={setListName}
         selectedMembers={selectedMembers}
         setSelectedMembers={setSelectedMembers}
         userMap={userMap}
         loggedInUser={loggedInUser}
-        handleSaveList={() => {
-          const newList = { id: `sl${Math.random()}`, name: listName, owner: loggedInUser, memberList: selectedMembers };
-          handleCreate(newList);
-          console.log(newList);
-          setShowModal(false);
-        }}
+        handleSaveList={handleSaveList}
       />
 
       <ConfirmDeleteModal
         showConfirmModal={showConfirmModal}
-        handleCloseConfirmModal={() => setShowConfirmModal(false)}
+        handleCloseConfirmModal={handleCloseConfirmModal}
         listToDelete={listToDelete}
-        confirmDelete={() => {
-          handleDelete(listToDelete.id);
-          setShowConfirmModal(false);
-        }}
+        confirmDelete={confirmDelete}
       />
 
       <ConfirmArchiveModal
         showArchiveModal={showArchiveModal}
-        handleCloseArchiveModal={() => setShowArchiveModal(false)}
+        handleCloseArchiveModal={handleCloseArchiveModal}
         listToArchive={listToArchive}
-        confirmArchive={() => {
-          handleArchive(listToArchive.id);
-          setShowArchiveModal(false);
-        }}
+        confirmArchive={confirmArchive}
       />
 
       <Row className="mt-4">
@@ -92,12 +127,9 @@ function Toolbar() {
                 <ListCard
                   list={list}
                   backgroundColor={getColorForList(list.id)}
-                  showDetail={() => {
-                    setSelectedList(list);
-                    setShowTable(true);
-                  }}
-                  handleShowConfirmModal={() => setListToDelete(list)}
-                  handleShowArchiveModal={() => setListToArchive(list)}
+                  showDetail={() => showDetail(list)}
+                  handleShowConfirmModal={() => handleShowConfirmModal(list)}
+                  handleShowArchiveModal={() => handleShowArchiveModal(list)}
                   isOwner={list.owner === loggedInUser}
                 />
               </Col>
