@@ -6,37 +6,41 @@ import { CgDetailsMore } from "react-icons/cg";
 
 function ListCard({ list, backgroundColor, showDetail, handleShowConfirmModal, handleShowArchiveModal, isOwner }) {
   return (
-    <Card
-      className="cards"
-      style={{
-        borderRadius: "50%",
-        width: "250px",
-        height: "250px",
-        textAlign: "center",
-        backgroundColor: backgroundColor,
-        margin: "10px",
-      }}
-    >
-      <Card.Body>
-        <Card.Title
-          style={{
-            fontSize: "2.3em",
-            margin: "auto",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100%",
-          }}
-        >
-          {list.name}
-        </Card.Title>
-      </Card.Body>
+    <>
+      <Card
+        className="cards"
+        style={{
+          borderRadius: "50%",
+          width: "250px",
+          height: "250px",
+          textAlign: "center",
+          backgroundColor: backgroundColor,
+          margin: "10px",
+        }}
+      >
+        <Card.Body>
+          <Card.Title
+            style={{
+              fontSize: "2.3em",
+              margin: "auto",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+            }}
+          >
+            {list.name}
+          </Card.Title>
+        </Card.Body>
+      </Card>
+
       <div
         className="below buttons"
         style={{
           width: "100%",
           display: "flex",
           justifyContent: "center",
+          marginTop: "5px",
         }}
       >
         {isOwner && (
@@ -53,7 +57,7 @@ function ListCard({ list, backgroundColor, showDetail, handleShowConfirmModal, h
           <CgDetailsMore size={50} />
         </Button>
       </div>
-    </Card>
+    </>
   );
 }
 

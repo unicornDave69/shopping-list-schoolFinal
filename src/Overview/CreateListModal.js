@@ -34,6 +34,7 @@ function CreateListModal({
               placeholder="Enter list name"
               value={listName}
               onChange={(e) => setListName(e.target.value)}
+              
             />
           </Form.Group>
           <hr />
