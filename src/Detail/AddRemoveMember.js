@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 
-function AddRemoveButtons() {
+function AddRemoveMemberButtons() {
   return (
     <>
       <Button variant="primary">Add member</Button>{" "}
@@ -9,4 +9,4 @@ function AddRemoveButtons() {
   );
 }
 
-export default AddRemoveButtons;
+export default AddRemoveMemberButtons;

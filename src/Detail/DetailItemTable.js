@@ -3,6 +3,9 @@ import { OverviewContext } from "../Providers/OverviewProvider";
 import { UserContext } from "../Providers/UserProvider";
 import { DetailContext } from "../Providers/DetailProvider";
 import { Table, Button } from "react-bootstrap";
+import AddRemoveMemberButtons from "./AddRemoveMember";
+import AddResolveDeleteItemButtons from "./AddResolveDeleteItemButtons";
+import EditNameModal from "./EditNameModal";
 
 function ListDetailTable({ selectedList, userMap, hideTable }) {
   return (

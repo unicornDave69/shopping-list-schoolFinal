@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 
-function AddRemoveButtons() {
+function AddResolveDeleteItemButtons() {
   return (
     <>
       <Button variant="primary">Resolve</Button>{" "}
@@ -10,4 +10,4 @@ function AddRemoveButtons() {
   );
 }
 
-export default AddRemoveButtons;
+export default AddResolveDeleteItemButtons;

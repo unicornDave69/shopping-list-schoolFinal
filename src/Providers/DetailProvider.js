@@ -90,7 +90,6 @@ function DetailProvider({ children }) {
           return { ...current };
         });
       },
-
       removeMember: ({ memberId }) => {
         setData((current) => {
           const memberIndex = current.memberList.findIndex(
