@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef } from "react";
 import { OverviewContext } from "../Providers/OverviewProvider";
 import { UserContext } from "../Providers/UserProvider";
-import { Container, Row, Col} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 import WelcomeMessage from "./WelcomeMessage";
 import IconButtons from "./IconButtons";
@@ -9,28 +9,49 @@ import CreateListModal from "./CreateListModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import ConfirmArchiveModal from "./ConfirmArchiveModal";
 import ListCard from "./ListCard";
-import ListDetailTable from "./ListDetailTable";
 
 function Toolbar() {
-  const { handleCreate, handleDelete, handleArchive, filteredOV, showArchived, setShowArchived } = useContext(OverviewContext);
+  const {
+    handleCreate,
+    handleDelete,
+    handleArchive,
+    filteredOV,
+    showArchived,
+    setShowArchived,
+  } = useContext(OverviewContext);
   const { loggedInUser, userMap } = useContext(UserContext);
 
   const [showModal, setShowModal] = useState(false);
   const [listName, setListName] = useState("");
   const [selectedMembers, setSelectedMembers] = useState([]);
-  const [showTable, setShowTable] = useState(false);
-  const [selectedList, setSelectedList] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [listToDelete, setListToDelete] = useState(null);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [listToArchive, setListToArchive] = useState(null);
 
-  const colors = ["#F0F8FF", "#FAEBD7", "#F0FFFF", "#F5F5DC", "#FFEBCD", "#DEB887", "#D2691E", "#9ACD32", "#F5F5F5", "#F5DEB3", "#40E0D0", "#C0C0C0", "#F4A460", "#B0E0E6", "#FFA500"];
+  const colors = [
+    "#F0F8FF",
+    "#FAEBD7",
+    "#F0FFFF",
+    "#F5F5DC",
+    "#FFEBCD",
+    "#DEB887",
+    "#D2691E",
+    "#9ACD32",
+    "#F5F5F5",
+    "#F5DEB3",
+    "#40E0D0",
+    "#C0C0C0",
+    "#F4A460",
+    "#B0E0E6",
+    "#FFA500",
+  ];
   const listColorsRef = useRef({});
 
   const getColorForList = (listId) => {
     if (!listColorsRef.current[listId]) {
-      listColorsRef.current[listId] = colors[Math.floor(Math.random() * colors.length)];
+      listColorsRef.current[listId] =
+        colors[Math.floor(Math.random() * colors.length)];
     }
     return listColorsRef.current[listId];
   };
@@ -78,11 +99,6 @@ function Toolbar() {
     handleCloseModal();
   };
 
-  const showDetail = (list) => {
-    setSelectedList(list);
-    setShowTable(true);
-  };
-
   return (
     <Container>
       <WelcomeMessage userName={userMap[loggedInUser]?.name} />
@@ -122,12 +138,18 @@ function Toolbar() {
       <Row className="mt-4">
         {filteredOV.map(
           (list, index) =>
-            (list.memberList.includes(loggedInUser) || list.owner === loggedInUser) && (
-              <Col key={index} sm={6} md={4} lg={3} className="d-flex flex-column align-items-center">
+            (list.memberList.includes(loggedInUser) ||
+              list.owner === loggedInUser) && (
+              <Col
+                key={index}
+                sm={6}
+                md={4}
+                lg={3}
+                className="d-flex flex-column align-items-center"
+              >
                 <ListCard
                   list={list}
                   backgroundColor={getColorForList(list.id)}
-                  showDetail={() => showDetail(list)}
                   handleShowConfirmModal={() => handleShowConfirmModal(list)}
                   handleShowArchiveModal={() => handleShowArchiveModal(list)}
                   isOwner={list.owner === loggedInUser}
@@ -136,14 +158,6 @@ function Toolbar() {
             )
         )}
       </Row>
-
-      {showTable && selectedList && (
-        <ListDetailTable
-          selectedList={selectedList}
-          userMap={userMap}
-          hideTable={() => setShowTable(false)}
-        />
-      )}
     </Container>
   );
 }

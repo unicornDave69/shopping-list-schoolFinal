@@ -2,9 +2,14 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import { IoIosArchive } from "react-icons/io";
-import { CgDetailsMore } from "react-icons/cg";
 
-function ListCard({ list, backgroundColor, showDetail, handleShowConfirmModal, handleShowArchiveModal, isOwner }) {
+function ListCard({
+  list,
+  backgroundColor,
+  handleShowConfirmModal,
+  handleShowArchiveModal,
+  isOwner,
+}) {
   return (
     <>
       <Card
@@ -45,17 +50,32 @@ function ListCard({ list, backgroundColor, showDetail, handleShowConfirmModal, h
       >
         {isOwner && (
           <>
-            <Button variant="danger" onClick={handleShowConfirmModal} style={{ borderRadius: "50%", width: "75px", height: "75px", margin: "5px" }}>
+            <Button
+              variant="danger"
+              onClick={handleShowConfirmModal}
+              style={{
+                borderRadius: "50%",
+                width: "75px",
+                height: "75px",
+                margin: "5px",
+              }}
+            >
               <FaTrash size={45} />
             </Button>
-            <Button variant="secondary" onClick={handleShowArchiveModal} style={{ borderRadius: "50%", width: "75px", height: "75px", margin: "5px" }}>
+            <Button
+              variant="secondary"
+              onClick={handleShowArchiveModal}
+              style={{
+                borderRadius: "50%",
+                width: "75px",
+                height: "75px",
+                margin: "5px",
+              }}
+            >
               <IoIosArchive size={50} />
             </Button>
           </>
         )}
-        <Button variant="primary" onClick={showDetail} style={{ borderRadius: "50%", width: "75px", height: "75px", margin: "5px" }}>
-          <CgDetailsMore size={50} />
-        </Button>
       </div>
     </>
   );
