@@ -1,22 +1,8 @@
 import React from "react";
+import { OverviewContext } from "../Providers/OverviewProvider";
+import { UserContext } from "../Providers/UserProvider";
+import { DetailContext } from "../Providers/DetailProvider";
 import { Table, Button } from "react-bootstrap";
-
-const showDetail = (list) => {
-    setSelectedList(list);
-    setShowTable(true);
-  };
-
-  {showTable && selectedList && (
-    <ListDetailTable
-      selectedList={selectedList}
-      userMap={userMap}
-      hideTable={() => setShowTable(false)}
-    />
-  )}
-  showDetail={() => showDetail(list)}
-
-  const [showTable, setShowTable] = useState(false);
-  const [selectedList, setSelectedList] = useState(null);
 
 function ListDetailTable({ selectedList, userMap, hideTable }) {
   return (
