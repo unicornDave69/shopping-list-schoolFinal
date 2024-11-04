@@ -57,11 +57,11 @@ function DetailProvider({ children }) {
           });
         };
       },
-      updateName: ({ name }) => {
+      updateListName: ({ name }) => {
         setData((current) => {
           current.name = name;
-          return { ...current };
         });
+        return { ...current };
       },
     },
   };
