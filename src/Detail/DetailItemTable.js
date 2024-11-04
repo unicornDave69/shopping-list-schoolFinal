@@ -1,42 +1,48 @@
-import React from "react";
-import { OverviewContext } from "../Providers/OverviewProvider";
-import { UserContext } from "../Providers/UserProvider";
+import React, { useContext } from "react";
 import { DetailContext } from "../Providers/DetailProvider";
-import { Table, Button } from "react-bootstrap";
-import AddRemoveMemberButtons from "./AddRemoveMember";
+import AddRemoveMemberButtons from "./AddRemoveMemberButtons";
 import AddResolveDeleteItemButtons from "./AddResolveDeleteItemButtons";
-import EditNameModal from "./EditNameModal";
+import Table from "react-bootstrap/Table";
 
-function ListDetailTable({ selectedList, userMap, hideTable }) {
+function DetailItemTable() {
+  const { data } = useContext(DetailContext);
+
   return (
-    <>
-      <Table style={{ margin: "20px" }}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Název Seznamu</th>
-            <th>Vlastník</th>
-            <th>Členové</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{selectedList.id}</td>
-            <td>{selectedList.name}</td>
-            <td>{userMap[selectedList.owner]?.name}</td>
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.itemList.map((item) => (
+          <tr key={item.id}>
+            <td>{item.name}</td>
             <td>
-              {selectedList.memberList
-                .map((userId) => userMap[userId]?.name)
-                .join(", ")}
+              <AddResolveDeleteItemButtons itemId={item.id} />
             </td>
           </tr>
-        </tbody>
-      </Table>
-      <Button variant="secondary" onClick={hideTable}>
-        Hide detail
-      </Button>
-    </>
+        ))}
+      </tbody>
+      <thead>
+        <tr>
+          <th>Member</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.memberList.map((member) => (
+          <tr key={member}>
+            <td>{member}</td>
+            <td>
+              <AddRemoveMemberButtons memberId={member} />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
   );
 }
 
-export default ListDetailTable;
+export default DetailItemTable;
