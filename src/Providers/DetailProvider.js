@@ -39,7 +39,7 @@ function DetailProvider({ children }) {
             {
               itemId: Math.random().toString(),
               itemName: "",
-              quantity: 1,
+              quantity: null,
               resolved: false,
             },
           ],
