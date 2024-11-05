@@ -31,15 +31,15 @@ function DetailProvider({ children }) {
   const value = {
     data: dataFilter,
     handlerMap: {
-      addItem: () => {
+      addItem: ({ itemId, itemName, quantity }) => {
         setData((current) => ({
           ...current,
           itemList: [
             ...current.itemList,
             {
-              itemId: Math.random().toString(),
-              itemName: "",
-              quantity: null,
+              itemId,
+              itemName, // použít itemName
+              quantity, // použít quantity
               resolved: false,
             },
           ],
