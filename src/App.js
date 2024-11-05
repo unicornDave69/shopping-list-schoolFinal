@@ -6,9 +6,8 @@ import Overview from "./Overview/Overview";
 function App() {
   return (
     <div className="App">
-      <Overview>
-        <Detail />
-      </Overview>
+      <Overview />
+      <Detail />
     </div>
   );
 }

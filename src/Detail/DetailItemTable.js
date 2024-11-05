@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { DetailContext } from "../Providers/DetailProvider";
-import AddRemoveMemberButtons from "./AddRemoveMemberButtons";
-import AddResolveDeleteItemButtons from "./AddResolveDeleteItemButtons";
 import Table from "react-bootstrap/Table";
+import AddRemoveMemberButtons from "./AddRemoveMember";
+import AddResolveDeleteItemButtons from "./AddResolveDelteItem";
 
 function DetailItemTable() {
   const { data } = useContext(DetailContext);
