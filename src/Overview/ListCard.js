@@ -9,6 +9,7 @@ function ListCard({
   handleShowConfirmModal,
   handleShowArchiveModal,
   isOwner,
+  showDetail,
 }) {
   return (
     <>
@@ -76,6 +77,18 @@ function ListCard({
             </Button>
           </>
         )}
+        <Button
+          variant="primary"
+          onClick={() => showDetail(list)} // Funkce showDetail pro zobrazení detailu
+          style={{
+            borderRadius: "50%",
+            width: "75px",
+            height: "75px",
+            margin: "5px",
+          }}
+        >
+          Zobrazit detaily
+        </Button>
       </div>
     </>
   );

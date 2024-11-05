@@ -5,7 +5,7 @@ export const DetailContext = createContext();
 function DetailProvider({ children }) {
   const [data, setData] = useState({
     id: `${Math.random()}`,
-    name: "Testing list",
+    name: "Testing list", // Opravený název
     owner: "u1",
     memberList: ["u2", "u3"],
     itemList: [
@@ -56,7 +56,7 @@ function DetailProvider({ children }) {
       updateListName: ({ name }) => {
         setData((current) => ({
           ...current,
-          name,
+          name, // Opravený název
         }));
       },
       resolveItem: ({ itemId }) => {

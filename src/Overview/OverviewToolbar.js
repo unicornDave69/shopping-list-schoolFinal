@@ -2,13 +2,13 @@ import React, { useState, useContext, useRef } from "react";
 import { OverviewContext } from "../Providers/OverviewProvider";
 import { UserContext } from "../Providers/UserProvider";
 import { Container, Row, Col } from "react-bootstrap";
-
 import WelcomeMessage from "./WelcomeMessage";
 import IconButtons from "./IconButtons";
 import CreateListModal from "./CreateListModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import ConfirmArchiveModal from "./ConfirmArchiveModal";
 import ListCard from "./ListCard";
+import DetailTable from "../Detail/DetailItemTable";
 
 function Toolbar() {
   const {
@@ -28,6 +28,8 @@ function Toolbar() {
   const [listToDelete, setListToDelete] = useState(null);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [listToArchive, setListToArchive] = useState(null);
+  const [showTable, setShowTable] = useState(false);
+  const [selectedList, setSelectedList] = useState(null);
 
   const colors = [
     "#F0F8FF",
@@ -97,8 +99,13 @@ function Toolbar() {
     handleCreate(newList);
     console.log(newList);
     setListName("");
-    setSelectedMembers("");
+    setSelectedMembers([]);
     handleCloseModal();
+  };
+
+  const showDetail = (list) => {
+    setSelectedList(list);
+    setShowTable(true); // Nastavení stavu pro zobrazení tabulky
   };
 
   return (
@@ -155,11 +162,13 @@ function Toolbar() {
                   handleShowConfirmModal={() => handleShowConfirmModal(list)}
                   handleShowArchiveModal={() => handleShowArchiveModal(list)}
                   isOwner={list.owner === loggedInUser}
+                  showDetail={showDetail} // Předání funkce showDetail do ListCard
                 />
               </Col>
             )
         )}
       </Row>
+      {showTable && selectedList && <DetailTable list={selectedList} />}
     </Container>
   );
 }
