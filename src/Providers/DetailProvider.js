@@ -10,8 +10,9 @@ function DetailProvider({ children }) {
     memberList: ["u2", "u3"],
     itemList: [
       {
-        id: `${Math.random()}`,
-        name: "Banana",
+        itemId: `${Math.random()}`,
+        itemName: "Banana",
+        quantity: 1,
         resolved: false,
       },
     ],
@@ -21,7 +22,7 @@ function DetailProvider({ children }) {
 
   const dataFilter = useMemo(() => {
     const result = { ...data };
-    if (showResolved === false) {
+    if (!showResolved) {
       result.itemList = result.itemList.filter((item) => !item.resolved);
     }
     return result;
@@ -31,29 +32,26 @@ function DetailProvider({ children }) {
     data: dataFilter,
     handlerMap: {
       addItem: () => {
-        setData((current) => {
-          current.itemList.push({
-            id: Math.random(),
-            name: "",
-            quantity: null,
-            resolved: false,
-          });
-          return { ...current };
-        });
+        setData((current) => ({
+          ...current,
+          itemList: [
+            ...current.itemList,
+            {
+              itemId: Math.random().toString(),
+              itemName: "",
+              quantity: 1,
+              resolved: false,
+            },
+          ],
+        }));
       },
-      updateItem: ({ id, name, quantity }) => {
-        setData((current) => {
-          const itemIndex = current.itemList.findIndex(
-            (item) => item.id === id
-          );
-
-          current.itemList[itemIndex] = {
-            ...current.itemList[itemIndex],
-            name,
-            quantity,
-          };
-          return { ...current };
-        });
+      updateItem: ({ itemId, itemName, quantity }) => {
+        setData((current) => ({
+          ...current,
+          itemList: current.itemList.map((item) =>
+            item.itemId === itemId ? { ...item, itemName, quantity } : item
+          ),
+        }));
       },
       updateListName: ({ name }) => {
         setData((current) => ({
@@ -61,45 +59,37 @@ function DetailProvider({ children }) {
           name,
         }));
       },
-      resolveItem: ({ id }) => {
-        setData((current) => {
-          const itemIndex = current.itemList.findIndex(
-            (item) => item.id === id
-          );
-          current.itemList[itemIndex] = {
-            ...current.itemList[itemIndex],
-            resolved: !current.itemList[itemIndex].resolved,
-          };
-          return { ...current };
-        });
+      resolveItem: ({ itemId }) => {
+        setData((current) => ({
+          ...current,
+          itemList: current.itemList.map((item) =>
+            item.itemId === itemId
+              ? { ...item, resolved: !item.resolved }
+              : item
+          ),
+        }));
       },
-      deleteItem: ({ id }) => {
-        setData((current) => {
-          const itemIndex = current.itemList.findIndex(
-            (item) => item.id === id
-          );
-          current.itemList.splice(itemIndex, 1);
-          return { ...current };
-        });
+      deleteItem: ({ itemId }) => {
+        setData((current) => ({
+          ...current,
+          itemList: current.itemList.filter((item) => item.itemId !== itemId),
+        }));
       },
       addMember: ({ memberId }) => {
-        setData((current) => {
-          if (!current.memberList.includes(memberId)) {
-            current.memberList.push(memberId);
-          }
-          return { ...current };
-        });
+        setData((current) => ({
+          ...current,
+          memberList: current.memberList.includes(memberId)
+            ? current.memberList
+            : [...current.memberList, memberId],
+        }));
       },
       removeMember: ({ memberId }) => {
-        setData((current) => {
-          const memberIndex = current.memberList.findIndex(
-            (member) => member.id === memberId
-          );
-          if (memberIndex > -1) {
-            current.memberList.splice(memberIndex, 1);
-          }
-          return { ...current };
-        });
+        setData((current) => ({
+          ...current,
+          memberList: current.memberList.filter(
+            (member) => member !== memberId
+          ),
+        }));
       },
     },
     showResolved,

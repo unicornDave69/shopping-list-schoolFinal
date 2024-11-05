@@ -5,38 +5,42 @@ import AddRemoveMemberButtons from "./AddRemoveMember";
 import AddResolveDeleteItemButtons from "./AddResolveDelteItem";
 
 function DetailItemTable() {
-  const { data } = useContext(DetailContext);
+  const { data, handlerMap } = useContext(DetailContext);
+  const { itemList } = data;
 
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>Item Name</th>
-          <th>Actions</th>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Add</th>
+          <th>Resolve</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
-        {data.itemList.map((item) => (
-          <tr key={item.id}>
-            <td>{item.name}</td>
+        {itemList.map((item) => (
+          <tr key={item.itemId}>
+            <td>{item.itemName}</td>
+            <td>{item.quantity}</td>
             <td>
-              <AddResolveDeleteItemButtons itemId={item.id} />
+              <AddRemoveMemberButtons itemId={item.itemId} />
             </td>
-          </tr>
-        ))}
-      </tbody>
-      <thead>
-        <tr>
-          <th>Member</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.memberList.map((member) => (
-          <tr key={member}>
-            <td>{member}</td>
             <td>
-              <AddRemoveMemberButtons memberId={member} />
+              <AddResolveDeleteItemButtons
+                action="resolve"
+                itemId={item.itemId}
+                resolved={item.resolved}
+                onClick={() => handlerMap.resolveItem({ itemId: item.itemId })}
+              />
+            </td>
+            <td>
+              <AddResolveDeleteItemButtons
+                action="delete"
+                itemId={item.itemId}
+                onClick={() => handlerMap.deleteItem({ itemId: item.itemId })}
+              />
             </td>
           </tr>
         ))}
