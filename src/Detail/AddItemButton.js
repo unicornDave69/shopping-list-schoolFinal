@@ -13,9 +13,9 @@ function AddButton() {
 
   const handleCreateItem = () => {
     handlerMap.addItem({
-      itemId: Math.random().toString(), // nebo generovat jinak, pokud potřebujete
-      itemName, // předat itemName
-      quantity: parseInt(quantity, 10), // předat quantity jako číslo
+      itemId: Math.random().toString(),
+      itemName,
+      quantity: parseInt(quantity, 10),
     });
     setItemName("");
     setQuantity("");

@@ -96,6 +96,8 @@ function Toolbar() {
     };
     handleCreate(newList);
     console.log(newList);
+    setListName("");
+    setSelectedMembers("");
     handleCloseModal();
   };
 

@@ -38,8 +38,8 @@ function DetailProvider({ children }) {
             ...current.itemList,
             {
               itemId,
-              itemName, // použít itemName
-              quantity, // použít quantity
+              itemName,
+              quantity,
               resolved: false,
             },
           ],
