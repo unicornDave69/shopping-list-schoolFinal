@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
 import { DetailContext } from "../Providers/DetailProvider";
 import Table from "react-bootstrap/Table";
-import AddRemoveMemberButtons from "./AddRemoveMember";
-import AddResolveDeleteItemButtons from "./AddResolveDelteItem";
+import DeleteItemButton from "./DeleteItemButton";
+import AddItemButton from "./AddItemButton";
+import ResolveItemButton from "./ResolveItemButton";
+import AddMemberButton from "./AddMemberButton";
+import DeleteMemberButton from "./DeleteMemberButton";
 
 function DetailItemTable() {
   const { data, handlerMap } = useContext(DetailContext);
@@ -25,10 +28,15 @@ function DetailItemTable() {
             <td>{item.itemName}</td>
             <td>{item.quantity}</td>
             <td>
-              <AddRemoveMemberButtons itemId={item.itemId} />
+              <AddItemButton
+                action="add"
+                itemId={item.itemId}
+                resolved={item.itemId}
+                onClick={() => handlerMap.addItem({ itemId: item.itemId })}
+              />
             </td>
             <td>
-              <AddResolveDeleteItemButtons
+              <ResolveItemButton
                 action="resolve"
                 itemId={item.itemId}
                 resolved={item.resolved}
@@ -36,7 +44,7 @@ function DetailItemTable() {
               />
             </td>
             <td>
-              <AddResolveDeleteItemButtons
+              <DeleteItemButton
                 action="delete"
                 itemId={item.itemId}
                 onClick={() => handlerMap.deleteItem({ itemId: item.itemId })}
