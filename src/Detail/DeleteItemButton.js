@@ -5,12 +5,13 @@ import { DetailContext } from "../Providers/DetailProvider";
 function DeleteItemButton({ itemId }) {
   const { handlerMap } = useContext(DetailContext);
 
+  const handleDeleteItem = () => {
+    handlerMap.deleteItem({ itemId });
+  };
+
   return (
     <>
-      <Button
-        variant="danger"
-        onClick={() => handlerMap.deleteItem({ id: itemId })}
-      >
+      <Button variant="danger" onClick={handleDeleteItem}>
         Delete
       </Button>{" "}
     </>
