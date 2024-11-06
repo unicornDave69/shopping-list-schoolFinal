@@ -5,6 +5,17 @@ import { DetailContext } from "../Providers/DetailProvider";
 function AddMemberButton({ memberId }) {
   const { handlerMap } = useContext(DetailContext);
 
+  const handleAddMember = () => {
+    handlerMap.addMember({
+      itemId: Math.random().toString(),
+      itemName,
+      quantity: parseInt(quantity, 10),
+    });
+    setItemName("");
+    setQuantity("");
+    handleCloseModal();
+  };
+
   return (
     <>
       <Button

@@ -1,5 +1,6 @@
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import { RiArrowGoBackLine } from "react-icons/ri";
 
 function BackToOverview({ memberId }) {
   const navigate = useNavigate();
@@ -10,8 +11,8 @@ function BackToOverview({ memberId }) {
 
   return (
     <>
-      <Button variant="warning" onClick={handleBackToOverview}>
-        Zpět na hlavní stránku
+      <Button variant="secondary" onClick={handleBackToOverview}>
+        <RiArrowGoBackLine size={25} />
       </Button>
     </>
   );
