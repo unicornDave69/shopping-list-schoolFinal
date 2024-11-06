@@ -34,8 +34,6 @@ function DetailItemTable() {
           <tr>
             <th>Položka</th>
             <th>Množství</th>
-            <th>Vyřešit</th>
-            <th>Odstranit</th>
           </tr>
         </thead>
         <tbody>

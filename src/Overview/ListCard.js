@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import { IoIosArchive } from "react-icons/io";
+import { TbListDetails } from "react-icons/tb";
 
 function ListCard({
   list,
@@ -61,7 +62,7 @@ function ListCard({
                 margin: "5px",
               }}
             >
-              <FaTrash size={45} />
+              <FaTrash size={50} />
             </Button>
             <Button
               variant="secondary"
@@ -79,7 +80,7 @@ function ListCard({
         )}
         <Button
           variant="primary"
-          onClick={() => showDetail(list)} // Funkce showDetail pro zobrazení detailu
+          onClick={() => showDetail(list)}
           style={{
             borderRadius: "50%",
             width: "75px",
@@ -87,7 +88,7 @@ function ListCard({
             margin: "5px",
           }}
         >
-          Zobrazit detaily
+          <TbListDetails size={50} />
         </Button>
       </div>
     </>
