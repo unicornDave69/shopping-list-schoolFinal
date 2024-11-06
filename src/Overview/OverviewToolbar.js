@@ -105,7 +105,7 @@ function Toolbar() {
 
   const showDetail = (list) => {
     setSelectedList(list);
-    setShowTable(true); // Nastavení stavu pro zobrazení tabulky
+    setShowTable(true);
   };
 
   return (
@@ -162,7 +162,7 @@ function Toolbar() {
                   handleShowConfirmModal={() => handleShowConfirmModal(list)}
                   handleShowArchiveModal={() => handleShowArchiveModal(list)}
                   isOwner={list.owner === loggedInUser}
-                  showDetail={showDetail} // Předání funkce showDetail do ListCard
+                  showDetail={showDetail}
                 />
               </Col>
             )

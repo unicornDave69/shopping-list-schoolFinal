@@ -7,17 +7,16 @@ import ResolveItemButton from "./ResolveItemButton";
 
 function DetailItemTable() {
   const { data, handlerMap } = useContext(DetailContext);
-  const { itemList, name, owner, memberList } = data; // Opravený název
+  const { itemList, name, owner, memberList } = data;
 
   return (
     <>
-      {/* Sekce pro název seznamu, vlastníka a členy */}
       <h3>Detail Nákupního Seznamu</h3>
       <Table striped bordered hover>
         <thead>
           <tr>
             <th>Název Seznamu</th>
-            <td>{name}</td> {/* Používáme name místo listName */}
+            <td>{name}</td>
           </tr>
           <tr>
             <th>Vlastník</th>
@@ -30,7 +29,6 @@ function DetailItemTable() {
         </thead>
       </Table>
 
-      {/* Původní tabulka položek */}
       <Table striped bordered hover>
         <thead>
           <tr>
