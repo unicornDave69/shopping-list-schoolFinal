@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import DeleteItemButton from "./DeleteItemButton";
 import AddItemButton from "./AddItemButton";
 import ResolveItemButton from "./ResolveItemButton";
+import BackToOverview from "./BackToOverviewButton";
 
 function DetailItemTable() {
   const { data, handlerMap } = useContext(DetailContext);
@@ -11,6 +12,7 @@ function DetailItemTable() {
 
   return (
     <>
+      <BackToOverview />
       <h3>Detail Nákupního Seznamu</h3>
       <Table striped bordered hover>
         <thead>
