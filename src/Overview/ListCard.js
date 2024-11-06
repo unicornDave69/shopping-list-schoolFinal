@@ -3,6 +3,7 @@ import { Card, Button } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import { IoIosArchive } from "react-icons/io";
 import { TbListDetails } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
 function ListCard({
   list,
@@ -12,6 +13,12 @@ function ListCard({
   isOwner,
   showDetail,
 }) {
+  const navigate = useNavigate();
+
+  const handleDetailNavigation = (listId) => {
+    navigate(`/list/${listId}`);
+  };
+
   return (
     <>
       <Card
@@ -80,7 +87,7 @@ function ListCard({
         )}
         <Button
           variant="primary"
-          onClick={() => showDetail(list)}
+          onClick={() => handleDetailNavigation(list.id)}
           style={{
             borderRadius: "50%",
             width: "75px",

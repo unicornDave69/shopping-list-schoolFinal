@@ -7,13 +7,17 @@ import ResolveItemButton from "./ResolveItemButton";
 
 function DetailItemTable() {
   const { data, handlerMap } = useContext(DetailContext);
-  const { itemList, name, owner, memberList } = data;
+  const { itemList, name, owner, memberList, id } = data;
 
   return (
     <>
       <h3>Detail Nákupního Seznamu</h3>
       <Table striped bordered hover>
         <thead>
+          <tr>
+            <th>ID</th>
+            <td>{id}</td>
+          </tr>
           <tr>
             <th>Název Seznamu</th>
             <td>{name}</td>
