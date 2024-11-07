@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UserContext } from "../Providers/UserProvider.js";
+import { UserContext } from "../Providers/UserProvider";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FaRegUserCircle } from "react-icons/fa";
 

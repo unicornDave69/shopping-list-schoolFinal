@@ -3,7 +3,15 @@ import { createContext, useMemo, useState } from "react";
 export const OverviewContext = createContext();
 
 function OverviewProvider({ children }) {
-  const [shoppingLists, setShoppingLists] = useState([]);
+  const [shoppingLists, setShoppingLists] = useState([
+    {
+      id: `${Math.random()}`,
+      name: "Testing list",
+      owner: "u1",
+      memberList: ["u2", "u3"],
+      status: "active",
+    },
+  ]);
   const [showArchived, setShowArchived] = useState(false);
 
   const handleCreate = ({ id, name, owner, memberList = [] }) => {
@@ -32,10 +40,6 @@ function OverviewProvider({ children }) {
       showArchived ? true : list.status === "active"
     );
   }, [showArchived, shoppingLists]);
-  
-  
-  
-  
 
   return (
     <OverviewContext.Provider
