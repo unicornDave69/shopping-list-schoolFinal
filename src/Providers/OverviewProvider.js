@@ -14,32 +14,34 @@ function OverviewProvider({ children }) {
   ]);
   const [showArchived, setShowArchived] = useState(false);
 
-  const handleCreate = ({ id, name, owner, memberList = [] }) => {
-    setShoppingLists((current) => [
-      ...current,
-      { id, name, owner, memberList, status: "active" },
-    ]);
-  };
-
-  const handleArchive = (listId) => {
-    setShoppingLists((current) => {
-      const listToArchive = current.find((list) => list.id === listId);
-      if (listToArchive) {
-        listToArchive.status = "archived";
-      }
-      return [...current];
-    });
-  };
-
-  const handleDelete = (listId) => {
-    setShoppingLists((current) => current.filter((list) => list.id !== listId));
-  };
-
   const filteredOV = useMemo(() => {
     return shoppingLists.filter((list) =>
       showArchived ? true : list.status === "active"
     );
   }, [showArchived, shoppingLists]);
+
+  const handlerMap = {
+    createList: ({ id, name, owner, memberList = [] }) => {
+      setShoppingLists((current) => [
+        ...current,
+        { id, name, owner, memberList, status: "active" },
+      ]);
+    },
+    archiveList: (listId) => {
+      setShoppingLists((current) => {
+        const listToArchive = current.find((list) => list.id === listId);
+        if (listToArchive) {
+          listToArchive.status = "archived";
+        }
+        return [...current];
+      });
+    },
+    deleteList: (listId) => {
+      setShoppingLists((current) =>
+        current.filter((list) => list.id !== listId)
+      );
+    },
+  };
 
   return (
     <OverviewContext.Provider
@@ -48,9 +50,7 @@ function OverviewProvider({ children }) {
         setShowArchived,
         shoppingLists,
         filteredOV,
-        handleCreate,
-        handleArchive,
-        handleDelete,
+        handlerMap,
       }}
     >
       {children}
