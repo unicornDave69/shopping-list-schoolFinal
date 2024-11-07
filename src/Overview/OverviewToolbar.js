@@ -9,6 +9,7 @@ import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import ConfirmArchiveModal from "./ConfirmArchiveModal";
 import ListCard from "./ListCard";
 import DetailTable from "../Detail/DetailItemTable";
+import DetailProvider from "../Providers/DetailProvider";
 
 function Toolbar() {
   const {
@@ -28,8 +29,8 @@ function Toolbar() {
   const [listToDelete, setListToDelete] = useState(null);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [listToArchive, setListToArchive] = useState(null);
-  const [showTable, setShowTable] = useState(false);
-  const [selectedList, setSelectedList] = useState(null);
+  const [showTable, setShowTable] = useState(false); // Stav pro zobrazení detailu
+  const [selectedList, setSelectedList] = useState(null); // Stav pro uchování aktuálně vybraného seznamu
 
   const colors = [
     "#F0F8FF",
@@ -103,8 +104,8 @@ function Toolbar() {
     handleCloseModal();
   };
 
-  const showDetail = (list) => {
-    setSelectedList(list);
+  const showDetail = (newList) => {
+    setSelectedList(newList);
     setShowTable(true);
   };
 
@@ -162,13 +163,18 @@ function Toolbar() {
                   handleShowConfirmModal={() => handleShowConfirmModal(list)}
                   handleShowArchiveModal={() => handleShowArchiveModal(list)}
                   isOwner={list.owner === loggedInUser}
-                  showDetail={showDetail}
+                  showDetail={() => showDetail(list)}
                 />
               </Col>
             )
         )}
       </Row>
-      {showTable && selectedList && <DetailTable list={selectedList} />}
+
+      {showTable && selectedList && (
+        <DetailProvider selectedList={selectedList}>
+          <DetailTable />
+        </DetailProvider>
+      )}
     </Container>
   );
 }

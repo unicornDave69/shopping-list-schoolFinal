@@ -1,22 +1,30 @@
-import { createContext, useMemo, useState } from "react";
+import { createContext, useMemo, useState, useEffect } from "react";
 
 export const DetailContext = createContext();
 
-function DetailProvider({ children }) {
-  const [data, setData] = useState({
-    id: `${Math.random()}`,
-    name: "Testing list",
-    owner: "u1",
-    memberList: ["u2", "u3"],
-    itemList: [
-      {
-        itemId: `${Math.random()}`,
-        itemName: "Banana",
-        quantity: 1,
-        resolved: false,
-      },
-    ],
-  });
+function DetailProvider({ children, selectedList }) {
+  const [data, setData] = useState(
+    selectedList || {
+      id: `${Math.random()}`,
+      name: "Testing list",
+      owner: "u1",
+      memberList: ["u2", "u3"],
+      itemList: [
+        {
+          itemId: `${Math.random()}`,
+          itemName: "Banana",
+          quantity: 1,
+          resolved: false,
+        },
+      ],
+    }
+  );
+
+  useEffect(() => {
+    if (selectedList) {
+      setData(selectedList);
+    }
+  }, [selectedList]);
 
   const [showResolved, setShowResolved] = useState(false);
 
